@@ -9,10 +9,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Array;
-import java.util.Set;
 
 public final class SafeDamageHere extends JavaPlugin implements Listener {
+
+
+    private UpdateChecker uc;
 
     @Override
     public void onEnable() {
@@ -21,6 +22,8 @@ public final class SafeDamageHere extends JavaPlugin implements Listener {
         getConfig().options().copyDefaults(true);
         getConfig().set("version", this.getDescription().getVersion());
         saveConfig();
+        this.uc = new UpdateChecker(this);
+        uc.getCheckDownloadURL();
     }
 
     @Override
@@ -30,7 +33,8 @@ public final class SafeDamageHere extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("sdh")) {
+        if (cmd.getName().equalsIgnoreCase("sdh") && sender.hasPermission("safedamagehere.configure")){
+
             if (sender instanceof Player) {
                 Player p = (Player) sender;
                 if (args.length == 0) {
@@ -49,6 +53,7 @@ public final class SafeDamageHere extends JavaPlugin implements Listener {
                 int pY = (int) loc.getY();
                 int pZ = (int) loc.getZ();
                 String pWorld = p.getWorld().getName();
+                if (args.length == 1 && args[0].equalsIgnoreCase("reload") && p.hasPermission("safedamagehere.reload")){reloadConfig();}
                 if (args.length == 2) {
                     if (args[1].equalsIgnoreCase("setA")) {
                         String region = args[0];
@@ -147,7 +152,6 @@ public final class SafeDamageHere extends JavaPlugin implements Listener {
 
                     if (x1 == 0 || x2 == 0 || y1 == 0 || y2 == 0 || z1 == 0 || z2 == 0) {
                         doIt = "false";
-                        p.sendMessage("false");
                     }
                     if (doIt == "true") {
                         String damageType = getConfig().getString("worlds." + p.getWorld().getName() + ".regions." + item + ".damageType");
@@ -156,8 +160,6 @@ public final class SafeDamageHere extends JavaPlugin implements Listener {
                         }
                     }
                 }
-            } else {
-                p.sendMessage("Invalid world");
             }
         }
     }

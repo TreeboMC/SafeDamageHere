@@ -10,3 +10,14 @@ commands:
   sdh:
     description: Safe Damage Here Commands
     usage: /<command> <subcommand>
+
+permissions:
+  safedamagehere.updatechecker:
+    description: 'Issues update check when player logs in'
+    default: op
+  safedamagehere.reload:
+    description: 'Allows a player to reload the plugin config.'
+    default: op
+  safedamagehere.configure:
+    description: 'Allows a player to create damage exclusion zones.'
+    default: op
