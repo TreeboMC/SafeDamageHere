@@ -9,13 +9,9 @@ Damage types available at https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/ev
   /sdh <region name> delete - Delete a region by name.
   /sdh <region name> confirm <damage type> - Save region and specify the type of damage to block.
 
-permissions:
-  safedamagehere.updatechecker:
-    description: 'Issues update check when player logs in'
-    default: op
-  safedamagehere.reload:
-    description: 'Allows a player to reload the plugin config.'
-    default: op
-  safedamagehere.configure:
-    description: 'Allows a player to create damage exclusion zones.'
-    default: op
+##Permissions
+  safedamagehere.updatechecker - 'Issues update check when player logs in'
+  safedamagehere.reload - 'Allows a player to reload the plugin config.'
+  safedamagehere.configure - 'Allows a player to create damage exclusion zones.'
+
+All permissions default to OP
